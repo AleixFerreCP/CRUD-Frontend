@@ -1,18 +1,24 @@
 <mat-card>
   <mat-spinner *ngIf="isLoading"></mat-spinner>
 
-  <form (submit)="onSavePost(postForm)" #postForm="ngForm" *ngIf="!isLoading">
+  <form
+    (submit)="onSaveContact(contactForm)"
+    #contactForm="ngForm"
+    *ngIf="!isLoading"
+  >
     <mat-form-field>
       <input
         matInput
         type="text"
         name="title"
-        [ngModel]="post?.title"
+        [ngModel]="contact?.title"
         required
         #title="ngModel"
-        placeholder="Post title"
+        placeholder="Contact title"
       />
-      <mat-error *ngIf="title.invalid"> Please enter a post title </mat-error>
+      <mat-error *ngIf="title.invalid">
+        Please enter a contact title
+      </mat-error>
     </mat-form-field>
     <div>
       <button mat-stroked-button type="button" (click)="filePicker.click()">
@@ -25,15 +31,17 @@
         matInput
         rows="6"
         name="content"
-        [ngModel]="post?.content"
+        [ngModel]="contact?.content"
         required
-        placeholder="Post content"
+        placeholder="Contact content"
         #content="ngModel"
       ></textarea>
       <mat-error *ngIf="content.invalid">
-        Please enter a post content
+        Please enter a contact content
       </mat-error>
     </mat-form-field>
-    <button mat-raised-button color="primary" type="submit">Save Post</button>
+    <button mat-raised-button color="primary" type="submit">
+      Save Contact
+    </button>
   </form>
 </mat-card>
