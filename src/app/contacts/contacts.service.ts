@@ -14,22 +14,9 @@ export class ContactsService {
 
   getContacts() {
     this.http
-      .get<{ message: string; contacts: any }>(
-        "http://localhost:3000/api/contacts"
-      )
-      .pipe(
-        map((contactData) => {
-          return contactData.contacts.map((contact) => {
-            return {
-              title: contact.title,
-              content: contact.content,
-              id: contact._id,
-            };
-          });
-        })
-      )
-      .subscribe((transformedContacts) => {
-        this.contacts = transformedContacts;
+      .get<Contact[]>("http://localhost:3000/contacts")
+      .subscribe((contacts) => {
+        this.contacts = contacts;
         this.contactsUpdated.next([...this.contacts]);
       });
   }
@@ -39,21 +26,24 @@ export class ContactsService {
   }
 
   getContact(id: string) {
-    return this.http.get<{ _id: string; title: string; content: string }>(
-      "http://localhost:3000/api/contacts/" + id
+    return this.http.get<{ _id: string; name: string; phone: string }>(
+      "http://localhost:3000/contacts/" + id
     );
   }
 
-  addContact(title: string, content: string) {
+  addContact(name: string, phone: string) {
     const contact: Contact = {
       id: null,
-      title: title,
-      content: content,
+      name: name,
+      phone: phone,
+      notes: "",
+      secphone: "",
+      email: "",
     };
 
     this.http
       .post<{ message: string; contactId: string }>(
-        "http://localhost:3000/api/contacts",
+        "http://localhost:3000/contacts",
         contact
       )
       .subscribe((responseData) => {
@@ -64,14 +54,17 @@ export class ContactsService {
       });
   }
 
-  updateContact(contactId: string, title: string, content: string) {
+  updateContact(contactId: string, name: string, phone: string) {
     const contact: Contact = {
-      id: contactId,
-      title: title,
-      content: content,
+      id: null,
+      name: name,
+      phone: phone,
+      notes: "",
+      secphone: "",
+      email: "",
     };
     this.http
-      .put("http://localhost:3000/api/contacts/" + contactId, contact)
+      .put("http://localhost:3000/contacts/" + contactId, contact)
       .subscribe((response) => {
         const updatedContacts = [...this.contacts];
         const oldContactIndex = updatedContacts.findIndex(
@@ -86,7 +79,7 @@ export class ContactsService {
 
   deleteContact(contactId: string) {
     this.http
-      .delete("http://localhost:3000/api/contacts/" + contactId)
+      .delete("http://localhost:3000/contacts/" + contactId)
       .subscribe(() => {
         const updatedContacts = this.contacts.filter(
           (contact) => contact.id !== contactId

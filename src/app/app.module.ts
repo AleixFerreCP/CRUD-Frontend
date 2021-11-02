@@ -1,7 +1,7 @@
 import { BrowserModule } from "@angular/platform-browser";
 import { NgModule } from "@angular/core";
 import { BrowserAnimationsModule } from "@angular/platform-browser/animations";
-import { ReactiveFormsModule } from "@angular/forms";
+import { FormsModule } from "@angular/forms";
 
 import { AppComponent } from "./app.component";
 import { ContactCreateComponent } from "./contacts/contact-create/contact-create.component";
@@ -26,7 +26,7 @@ import { AppRouting } from "./app-routing.module";
   imports: [
     BrowserModule,
     AppRouting,
-    ReactiveFormsModule,
+    FormsModule,
     BrowserAnimationsModule,
     MatInputModule,
     MatCardModule,

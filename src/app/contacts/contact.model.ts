@@ -1,5 +1,8 @@
 export interface Contact {
   id: string;
-  title: string;
-  content: string;
+  name: string;
+  phone: string;
+  notes: string;
+  secphone: string;
+  email: string;
 }
