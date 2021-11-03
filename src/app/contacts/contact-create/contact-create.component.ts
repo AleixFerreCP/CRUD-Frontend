@@ -53,13 +53,9 @@ export class ContactCreateComponent implements OnInit {
     if (!form.invalid) {
       this.isLoading = true;
       if (this.mode === "create") {
-        this.contactsService.addContact(form.value.title, form.value.content);
+        this.contactsService.addContact(form.value);
       } else {
-        this.contactsService.updateContact(
-          this.contactId,
-          form.value.title,
-          form.value.content
-        );
+        this.contactsService.updateContact(this.contactId, form.value);
       }
       form.resetForm();
     }

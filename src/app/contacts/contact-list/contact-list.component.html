@@ -3,9 +3,12 @@
 <mat-accordion *ngIf="contacts.length > 0 && !isLoading">
   <mat-expansion-panel *ngFor="let contact of contacts">
     <mat-expansion-panel-header>
-      {{ contact.title }}
+      {{ contact.name }} | {{ contact.id }}
     </mat-expansion-panel-header>
-    <p>{{ contact.content }}</p>
+    <p>Phone: {{ contact.phone }}</p>
+    <p>Secondary Phone: {{ contact.secphone ?? "Not provided" }}</p>
+    <p>Email: {{ contact.email ?? "Not provided" }}</p>
+    <p>Notes: {{ contact.notes ?? "Not provided" }}</p>
     <mat-action-row>
       <a mat-button color="primary" [routerLink]="['/edit', contact.id]"
         >EDIT</a

@@ -30,16 +30,7 @@ export class ContactsService {
     );
   }
 
-  addContact(name: string, phone: string) {
-    const contact: Contact = {
-      id: null,
-      name: name,
-      phone: phone,
-      notes: "",
-      secphone: "",
-      email: "",
-    };
-
+  addContact(contact: Contact) {
     this.http
       .post<{ message: string; contactId: string }>(
         "http://localhost:3000/contacts",
@@ -53,22 +44,12 @@ export class ContactsService {
       });
   }
 
-  updateContact(contactId: string, name: string, phone: string) {
-    const contact: Contact = {
-      id: null,
-      name: name,
-      phone: phone,
-      notes: "",
-      secphone: "",
-      email: "",
-    };
+  updateContact(id: string, contact: Contact) {
     this.http
-      .put("http://localhost:3000/contacts/" + contactId, contact)
-      .subscribe((response) => {
+      .put("http://localhost:3000/contacts/" + id, contact)
+      .subscribe(() => {
         const updatedContacts = [...this.contacts];
-        const oldContactIndex = updatedContacts.findIndex(
-          (p) => p.id === contact.id
-        );
+        const oldContactIndex = updatedContacts.findIndex((p) => p.id === id);
         updatedContacts[oldContactIndex] = contact;
         this.contacts = updatedContacts;
         this.contactsUpdated.next([...this.contacts]);

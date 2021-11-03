@@ -10,36 +10,71 @@
       <input
         matInput
         type="text"
-        name="title"
-        [ngModel]="contact?.title"
+        name="name"
+        [ngModel]="contact?.name"
         required
         #title="ngModel"
-        placeholder="Contact title"
+        placeholder="Contact name"
       />
-      <mat-error *ngIf="title.invalid">
-        Please enter a contact title
+      <mat-error *ngIf="title.invalid"> Please enter a contact name </mat-error>
+    </mat-form-field>
+
+    <mat-form-field>
+      <input
+        matInput
+        type="tel"
+        name="phone"
+        pattern="[0-9]{9,11}"
+        [ngModel]="contact?.phone"
+        required
+        placeholder="Contact phone"
+        #content="ngModel"
+      />
+      <mat-error *ngIf="content.invalid">
+        Please enter a valid contact phone
       </mat-error>
     </mat-form-field>
-    <div>
-      <button mat-stroked-button type="button" (click)="filePicker.click()">
-        Pick Image
-      </button>
-      <input type="file" #filePicker />
-    </div>
+
+    <mat-form-field>
+      <input
+        matInput
+        type="tel"
+        name="secphone"
+        pattern="[0-9]{9,11}"
+        [ngModel]="contact?.secphone"
+        placeholder="Contact secondary phone"
+        #content="ngModel"
+      />
+      <mat-error *ngIf="content.invalid">
+        Please enter a valid contact secondary phone
+      </mat-error>
+    </mat-form-field>
+
+    <mat-form-field>
+      <input
+        matInput
+        type="email"
+        name="email"
+        [ngModel]="contact?.email"
+        placeholder="Contact email"
+        #content="ngModel"
+      />
+      <mat-error *ngIf="content.invalid">
+        Please enter a valid contact email
+      </mat-error>
+    </mat-form-field>
+
     <mat-form-field>
       <textarea
         matInput
         rows="6"
-        name="content"
-        [ngModel]="contact?.content"
-        required
-        placeholder="Contact content"
+        name="notes"
+        [ngModel]="contact?.notes"
+        placeholder="Contact notes"
         #content="ngModel"
       ></textarea>
-      <mat-error *ngIf="content.invalid">
-        Please enter a contact content
-      </mat-error>
     </mat-form-field>
+
     <button mat-raised-button color="primary" type="submit">
       Save Contact
     </button>
