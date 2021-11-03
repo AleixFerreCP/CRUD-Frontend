@@ -1,9 +1,8 @@
-import { Injectable } from "@angular/core";
-import { Contact } from "./contact.model";
 import { HttpClient } from "@angular/common/http";
-import { Subject } from "rxjs";
-import { map } from "rxjs/operators";
+import { Injectable } from "@angular/core";
 import { Router } from "@angular/router";
+import { Subject } from "rxjs";
+import { Contact } from "./contact.model";
 
 @Injectable({ providedIn: "root" })
 export class ContactsService {
