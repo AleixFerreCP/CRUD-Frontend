@@ -33,14 +33,7 @@ export class ContactCreateComponent implements OnInit {
           .getContact(this.contactId)
           .subscribe((contactData) => {
             this.isLoading = false;
-            this.contact = {
-              id: null,
-              name: contactData.name,
-              phone: contactData.phone,
-              notes: "",
-              secphone: "",
-              email: "",
-            };
+            this.contact = contactData;
           });
       } else {
         this.mode = "create";

@@ -25,19 +25,14 @@ export class ContactsService {
   }
 
   getContact(id: string) {
-    return this.http.get<{ _id: string; name: string; phone: string }>(
-      "http://localhost:3000/contacts/" + id
-    );
+    return this.http.get<Contact>(`http://localhost:3000/contacts/${id}`);
   }
 
   addContact(contact: Contact) {
     this.http
-      .post<{ message: string; contactId: string }>(
-        "http://localhost:3000/contacts",
-        contact
-      )
+      .post<{ id: string }>("http://localhost:3000/contacts", contact)
       .subscribe((responseData) => {
-        contact.id = responseData.contactId;
+        contact.id = responseData.id;
         this.contacts.push(contact);
         this.contactsUpdated.next([...this.contacts]);
         this.router.navigate(["/"]);
@@ -46,7 +41,7 @@ export class ContactsService {
 
   updateContact(id: string, contact: Contact) {
     this.http
-      .put("http://localhost:3000/contacts/" + id, contact)
+      .put(`http://localhost:3000/contacts/${id}`, contact)
       .subscribe(() => {
         const updatedContacts = [...this.contacts];
         const oldContactIndex = updatedContacts.findIndex((p) => p.id === id);
@@ -59,7 +54,7 @@ export class ContactsService {
 
   deleteContact(contactId: string) {
     this.http
-      .delete("http://localhost:3000/contacts/" + contactId)
+      .delete(`http://localhost:3000/contacts/${contactId}`)
       .subscribe(() => {
         const updatedContacts = this.contacts.filter(
           (contact) => contact.id !== contactId
